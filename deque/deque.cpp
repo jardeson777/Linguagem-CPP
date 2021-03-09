@@ -25,7 +25,7 @@ class deque{
         void insereInicio(string dado){
             auto* novo = new noDeque{.dado = dado, .prox = 0, .ant = 0};
             
-            if(inicio == 0){ //então só tem um elemento, com isso a inicio e o fim vai ser o mesmo dado
+            if(inicio == 0 && fim == 0){ //então só tem um elemento, com isso a inicio e o fim vai ser o mesmo dado
                 this -> inicio = novo;
                 this -> fim = novo;
             } else { //Se já tiver elemento criado, então eu crio um no vazio de nome valor que vai ser o msm valor do inicio.
@@ -42,14 +42,15 @@ class deque{
 
         void insereFim(string dado){
             auto* novo = new noDeque{.dado = dado, .prox = 0, .ant = 0};
-            if(inicio == 0){ //Se não tiver ngm então o inicio e fim vai ser o msm dado
+
+            if(inicio == 0 && fim == 0){ //Se não tiver ngm então o inicio e fim vai ser o msm dado
                 this -> inicio = novo;
                 this -> fim = novo;
             } else {
                 noDeque* valor;
                 valor = this -> fim;
-                valor -> prox = novo;
                 novo -> ant = valor;
+                valor -> prox = novo;
                 this -> fim = novo;
             }
             cout << "\n----------------------------------------\n";
@@ -167,7 +168,7 @@ int main(void){
             case 7:
                 if(d1.cont > 0){
                     while(d1.cont > 0){
-                        d1.removeFim();
+                        d1.removeInicio();
                     }
                     cout << "\n----------------------------------------\n";
                     cout << "Todos os dados foram removidos";
