@@ -28,12 +28,14 @@ class pilha{
             n++;
         }
 
-        void desempilha(){
+        string desempilha(){
             string dado = this -> inicio -> dado;
             noPilha* p = this -> inicio -> prox;
             delete inicio;
             this -> inicio = p;
             cont--;
+
+            return dado;
         }
 };
 
@@ -78,13 +80,21 @@ class fila{
 
 
 int main(void){
-    int i;
+    int i, j;
     pilha p1;
     pilha p2;
     pilha p3;
+    pilha aux1;
+    pilha aux2;
+    pilha aux3;
+
     p1.cria();
     p2.cria();
     p3.cria();
+    aux1.cria();
+    aux2.cria();
+    aux3.cria();
+
     fila f1;
     f1.cria();
 
@@ -94,17 +104,17 @@ int main(void){
     p1.empilha("4");
     p1.empilha("5");
 
-    p2.empilha("6");
-    p2.empilha("7");
-    p2.empilha("8");
-    p2.empilha("9");
-    p2.empilha("10");
+    p2.empilha("1");
+    p2.empilha("2");
+    p2.empilha("3");
+    p2.empilha("4");
+    p2.empilha("5");
 
-    p3.empilha("11");
-    p3.empilha("12");
-    p3.empilha("13");
-    p3.empilha("14");
-    p3.empilha("15");
+    p3.empilha("1");
+    p3.empilha("2");
+    p3.empilha("3");
+    p3.empilha("4");
+    p3.empilha("5");
 
     //A troca de ordem de p1 será usando uma fila
 
@@ -121,10 +131,74 @@ int main(void){
         p1.n--;
     }
     
-    cout << "\n\nPilha p1 invertida: ";
+    cout << "\nPilha p1 invertida: ";
     for(i=0; i<p1.n; i++){
         cout << p1.inicio -> dado << " ";
         p1.desempilha();
     }
     cout <<"\n\n";
+
+    //A troca de ordem de p2 será usando duas pilhas
+    cout << "Pilha p2: ";
+    for(i=0; i<p2.n; i++){
+        aux1.empilha(p2.inicio->dado);
+        cout << p2.inicio->dado << " ";
+        p2.desempilha();
+    }
+
+    for(i=0; i<aux1.n; i++){
+        aux2.empilha(aux1.inicio->dado);
+        aux1.desempilha();
+    }
+
+   
+    for(i=0; i<aux2.n; i++){
+        p2.empilha(aux2.inicio->dado);
+        aux2.desempilha();
+    }
+
+    noPilha* p;
+    p = p2.inicio;
+    cout << "\nPilha p2 invertida: ";
+    while(p != 0){
+        cout << p->dado << " ";
+        p = p->prox;
+    }
+    cout <<"\n";
+
+    //A troca de ordem de p3 será usando uma pilha
+    noPilha* pi;
+    int k=p3.n - 1;
+
+    pi = p3.inicio;
+    for(j=0; j<p3.n; j++){ //Copiando a pilha p3 para a aux3
+        for(i=0; i<p3.n; i++){
+            if(i == k){
+                aux3.empilha(pi->dado);
+                k--;
+            }
+            pi = pi->prox;
+        }
+        pi = p3.inicio;  
+    }
+
+    cout << "\nPilha p3: ";
+    for(i=0; i<p3.n; i++){
+        cout << p3.desempilha() << " ";
+    }
+
+    p3.n=0;
+
+    for(i=0; i<aux3.n; i++){
+        p3.empilha(aux3.inicio->dado);
+        aux3.desempilha();
+    }
+
+    pi = p3.inicio;
+    cout << "\nPilha p3 invertida: ";
+    while(pi != 0){
+        cout << pi->dado << " ";
+        pi = pi->prox;
+    }
+    cout << "\n\n";
 }
