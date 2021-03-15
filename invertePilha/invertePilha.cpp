@@ -78,6 +78,17 @@ class fila{
         }
 };
 
+void copiaPilha(struct noPilha* pi, struct pilha* p, int cont, int n){
+    if(cont == n){
+        cont--;
+        n--;
+    } else {
+        pi = pi->prox;
+        cont++;
+        copiaPilha(pi, p, cont, n);
+        p->empilha(pi->dado);
+    }
+}
 
 int main(void){
     int i, j;
@@ -169,18 +180,11 @@ int main(void){
     //A troca de ordem de p3 será usando uma pilha
     noPilha* pi;
     int k=p3.n - 1;
+    int cont = 0;
 
     pi = p3.inicio;
-    for(j=0; j<p3.n; j++){ //Copiando a pilha p3 para a aux3
-        for(i=0; i<p3.n; i++){
-            if(i == k){
-                aux3.empilha(pi->dado);
-                k--;
-            }
-            pi = pi->prox;
-        }
-        pi = p3.inicio;  
-    }
+    copiaPilha(pi,&aux3, cont, k);
+    aux3.empilha(pi->dado);
 
     cout << "\nPilha p3: ";
     for(i=0; i<p3.n; i++){
@@ -202,3 +206,44 @@ int main(void){
     }
     cout << "\n\n";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    1 2 3 4 5
+    1 2 3 4
+    -
+
+    5
+    1 2 3 4
+    -
+
+    5 4
+    -
+    1 2 3
+
+    5 4
+    1 2 
+    3
+
+    5 4 3
+    1 2
+    -
+
+    5 4 3 2
+    -
+    1
