@@ -53,7 +53,7 @@ void desenfileiraEnfileirando(struct fila* f1, struct fila* aux){
     }
 }
 
-void inverteFilaComFila(struct fila* f, struct fila* aux1, struct fila* aux2, int qtdLoop){
+void inverteFila(struct fila* f, struct fila* aux1, struct fila* aux2, int qtdLoop){
     int i;
     if(qtdLoop == f->n){
         return;
@@ -61,7 +61,7 @@ void inverteFilaComFila(struct fila* f, struct fila* aux1, struct fila* aux2, in
     else if(qtdLoop == 0){
         desenfileiraEnfileirando(f, aux1);
         qtdLoop++;
-        inverteFilaComFila(f, aux1, aux2, qtdLoop);
+        inverteFila(f, aux1, aux2, qtdLoop);
     } 
     
     else if (qtdLoop % 2 != 0){
@@ -70,7 +70,7 @@ void inverteFilaComFila(struct fila* f, struct fila* aux1, struct fila* aux2, in
         f->n--;
         aux1->desenfileira();
         qtdLoop++;
-        inverteFilaComFila(f, aux1, aux2, qtdLoop);
+        inverteFila(f, aux1, aux2, qtdLoop);
     } 
     
     else if (qtdLoop % 2 == 0 & qtdLoop != 0){
@@ -79,7 +79,7 @@ void inverteFilaComFila(struct fila* f, struct fila* aux1, struct fila* aux2, in
         f->n--;
         aux2->desenfileira();
         qtdLoop++;
-        inverteFilaComFila(f, aux1, aux2, qtdLoop);
+        inverteFila(f, aux1, aux2, qtdLoop);
     }
 }
 
@@ -106,11 +106,12 @@ int main(void){
     f1.enfileira("2");
     f1.enfileira("3");
     f1.enfileira("4");
+    
 
     cout << "Fila f1: ";
     printFila(&f1);
 
-    inverteFilaComFila(&f1, &aux1, &aux2, qtdLoop);
+    inverteFila(&f1, &aux1, &aux2, qtdLoop);
 
     cout << "\nFila f1 invertida: ";
     printFila(&f1);
