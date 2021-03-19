@@ -31,7 +31,7 @@ class pilha{
             if(cont == 0){
                 frente = dado;
             }
-
+            
             cont++;
             n++;
         }
